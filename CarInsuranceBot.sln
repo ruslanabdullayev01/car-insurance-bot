@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarInsuranceBot.Application", "src\CarInsuranceBot.Application\CarInsuranceBot.Application.csproj", "{875B5E7D-617B-467F-BAC9-A07348E42846}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{44A9E933-438C-42B3-A39B-7D02844964A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F64E2958-FA03-4BF0-AA10-10C9F375E3D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarInsuranceBot.Infrastructure", "src\CarInsuranceBot.Infrastructure\CarInsuranceBot.Infrastructure.csproj", "{38896430-FEB6-47FF-92A0-EBBE0AADF542}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarInsuranceBot.Api", "src\CarInsuranceBot.Api\CarInsuranceBot.Api.csproj", "{5922474B-2363-4266-B088-B0A49FA8D3F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarInsuranceBot.Domain", "src\CarInsuranceBot.Domain\CarInsuranceBot.Domain.csproj", "{DBC378A0-FBA8-4F0C-9F25-FEA0D0386259}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{875B5E7D-617B-467F-BAC9-A07348E42846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{875B5E7D-617B-467F-BAC9-A07348E42846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{875B5E7D-617B-467F-BAC9-A07348E42846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{875B5E7D-617B-467F-BAC9-A07348E42846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38896430-FEB6-47FF-92A0-EBBE0AADF542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38896430-FEB6-47FF-92A0-EBBE0AADF542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38896430-FEB6-47FF-92A0-EBBE0AADF542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38896430-FEB6-47FF-92A0-EBBE0AADF542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5922474B-2363-4266-B088-B0A49FA8D3F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5922474B-2363-4266-B088-B0A49FA8D3F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5922474B-2363-4266-B088-B0A49FA8D3F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5922474B-2363-4266-B088-B0A49FA8D3F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBC378A0-FBA8-4F0C-9F25-FEA0D0386259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBC378A0-FBA8-4F0C-9F25-FEA0D0386259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBC378A0-FBA8-4F0C-9F25-FEA0D0386259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBC378A0-FBA8-4F0C-9F25-FEA0D0386259}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{875B5E7D-617B-467F-BAC9-A07348E42846} = {44A9E933-438C-42B3-A39B-7D02844964A8}
+		{38896430-FEB6-47FF-92A0-EBBE0AADF542} = {44A9E933-438C-42B3-A39B-7D02844964A8}
+		{5922474B-2363-4266-B088-B0A49FA8D3F7} = {44A9E933-438C-42B3-A39B-7D02844964A8}
+		{DBC378A0-FBA8-4F0C-9F25-FEA0D0386259} = {44A9E933-438C-42B3-A39B-7D02844964A8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7FE9940E-2B22-43D6-A977-C3C9E9AE9ABD}
+	EndGlobalSection
+EndGlobal
