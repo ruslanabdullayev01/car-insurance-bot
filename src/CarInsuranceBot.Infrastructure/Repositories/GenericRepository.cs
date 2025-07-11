@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using CarInsuranceBot.Application.IRepositories;
-using CarInsuranceBot.Infrastructure.Context;
+using CarInsuranceBot.Infrastructure.Data;
 using Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 

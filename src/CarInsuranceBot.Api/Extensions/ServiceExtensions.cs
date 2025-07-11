@@ -2,7 +2,7 @@
 using CarInsuranceBot.Application.IRepositories;
 using CarInsuranceBot.Application.IServices;
 using CarInsuranceBot.Application.IUnitOfWork;
-using CarInsuranceBot.Infrastructure.Context;
+using CarInsuranceBot.Infrastructure.Data;
 using CarInsuranceBot.Infrastructure.Repositories;
 using CarInsuranceBot.Infrastructure.Services;
 using CarInsuranceBot.Infrastructure.UnitOfWork;

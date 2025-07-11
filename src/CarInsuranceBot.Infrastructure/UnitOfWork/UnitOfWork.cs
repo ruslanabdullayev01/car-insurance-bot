@@ -1,5 +1,5 @@
 ﻿using CarInsuranceBot.Application.IUnitOfWork;
-using CarInsuranceBot.Infrastructure.Context;
+using CarInsuranceBot.Infrastructure.Data;
 
 namespace CarInsuranceBot.Infrastructure.UnitOfWork;
 public sealed class UnitOfWork(AppDbContext db) : IUnitOfWork
