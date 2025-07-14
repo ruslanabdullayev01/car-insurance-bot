@@ -1,6 +1,8 @@
-﻿namespace Domain.Entities
+﻿using Domain.Entities.Base;
+
+namespace Domain.Entities
 {
-    public class Error
+    public class Error : BaseEntity
     {
         public string Message { get; set; } = null!;
         public string? StackTrace { get; set; }

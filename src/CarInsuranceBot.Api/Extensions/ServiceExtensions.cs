@@ -1,5 +1,4 @@
-﻿using System.Text;
-using CarInsuranceBot.Application.IRepositories;
+﻿using CarInsuranceBot.Application.IRepositories;
 using CarInsuranceBot.Application.IServices;
 using CarInsuranceBot.Application.IUnitOfWork;
 using CarInsuranceBot.Infrastructure.Data;
@@ -10,14 +9,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace Web.API.Extensions;
 public static class ServiceExtensions
 {
     public static void ConfigureSqlConnection(this IServiceCollection services, IConfiguration configuration) =>
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("Default")));
-    
+        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("Default")));
+
     public static IServiceCollection AddRepositoriesInjection(this IServiceCollection services)
     {
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -31,7 +30,7 @@ public static class ServiceExtensions
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
         return services;
     }
-    
+
     public static IServiceCollection AddJwtConfiguration(this IServiceCollection services,
         IConfiguration config)
     {
