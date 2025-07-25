@@ -6,22 +6,22 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["src/Web.API/Web.API.csproj", "src/Web.API/"]
-COPY ["src/BusinessLayer/BusinessLayer.csproj", "src/BusinessLayer/"]
-COPY ["src/DataAccessLayer/DataAccessLayer.csproj", "src/DataAccessLayer/"]
-COPY ["src/CoreLayer/CoreLayer.csproj", "src/CoreLayer/"]
-RUN dotnet restore "./src/Web.API/./Web.API.csproj"
+COPY ["src/CarInsuranceBot.Api/CarInsuranceBot.Api.csproj", "src/CarInsuranceBot.Api/"]
+COPY ["src/CarInsuranceBot.Application/CarInsuranceBot.Application.csproj", "src/CarInsuranceBot.Application/"]
+COPY ["src/CarInsuranceBot.Domain/CarInsuranceBot.Domain.csproj", "src/CarInsuranceBot.Domain/"]
+COPY ["src/CarInsuranceBot.Infrastructure/CarInsuranceBot.Infrastructure.csproj", "src/CarInsuranceBot.Infrastructure/"]
+RUN dotnet restore "./src/CarInsuranceBot.Api/./CarInsuranceBot.Api.csproj"
 
 COPY . .
-WORKDIR "src/Web.API"
-RUN dotnet build "./Web.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "src/CarInsuranceBot.Api"
+RUN dotnet build "./CarInsuranceBot.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Web.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish --no-restore /p:UseAppHost=false
+RUN dotnet publish "./CarInsuranceBot.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish --no-restore /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENTRYPOINT ["dotnet", "Web.API.dll"]
+ENTRYPOINT ["dotnet", "CarInsuranceBot.Api.dll"]
