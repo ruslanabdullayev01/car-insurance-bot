@@ -9,7 +9,6 @@ namespace CarInsuranceBot.Application
             services.AddMediatR(config =>
             {
                 config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-              
             });
             return services;
         }

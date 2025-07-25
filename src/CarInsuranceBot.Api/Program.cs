@@ -1,8 +1,17 @@
 using CarInsuranceBot.Application;
+using Telegram.Bot;
+using Web.API.Controllers;
 using Web.API.Extensions;
 using Web.API.Middlewares;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+// Telegram bot
+builder.Services.AddSingleton<ITelegramBotClient>(_ =>
+    new TelegramBotClient(builder.Configuration["TelegramBot:Token"]!));
+
+// Bot servis
+builder.Services.AddHostedService<TelegramBotService>();
 
 //Services
 builder.Services.AddMediatr();

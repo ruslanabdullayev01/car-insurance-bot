@@ -14,7 +14,7 @@ public static class UseCustomExceptionHandler
             {
                 context.Response.ContentType = "application/json";
 
-                IExceptionHandlerFeature exceptionFeature = context.Features.Get<IExceptionHandlerFeature>();
+                IExceptionHandlerFeature exceptionFeature = context.Features.Get<IExceptionHandlerFeature>()!;
 
                 int statusCode = exceptionFeature!.Error switch
                 {

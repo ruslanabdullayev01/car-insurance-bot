@@ -14,7 +14,5 @@ namespace Domain.Entities
         // Relations
         public required string UserId { get; set; }
         public User User { get; set; } = null!;
-
-        public ICollection<PolicyEvent> PolicyEvents { get; set; } = [];
     }
 }

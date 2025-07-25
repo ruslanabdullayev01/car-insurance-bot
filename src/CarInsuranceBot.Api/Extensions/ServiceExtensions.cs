@@ -1,33 +1,48 @@
-﻿using CarInsuranceBot.Application.IRepositories;
+﻿using System.Text;
+using CarInsuranceBot.Application.IRepositories;
 using CarInsuranceBot.Application.IServices;
+using CarInsuranceBot.Application.IServices.Helper;
 using CarInsuranceBot.Application.IUnitOfWork;
 using CarInsuranceBot.Infrastructure.Data;
 using CarInsuranceBot.Infrastructure.Repositories;
 using CarInsuranceBot.Infrastructure.Services;
+using CarInsuranceBot.Infrastructure.Services.Helper;
+using CarInsuranceBot.Infrastructure.Services.Mindee;
 using CarInsuranceBot.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 
 namespace Web.API.Extensions;
 public static class ServiceExtensions
 {
     public static void ConfigureSqlConnection(this IServiceCollection services, IConfiguration configuration) =>
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("Default")));
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("Db")));
 
     public static IServiceCollection AddRepositoriesInjection(this IServiceCollection services)
     {
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IDocumentRepository, DocumentRepository>();
+        services.AddScoped<IExtractedFieldRepository, ExtractedFieldRepository>();
+        services.AddScoped<IErrorRepository, ErrorRepository>();
         return services;
     }
 
     public static IServiceCollection AddServicesInjection(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddSingleton<IPasswordHasher, PasswordHasher>();
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+        services.AddSingleton<MindeeOcrService>();
+
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IDocumentService, DocumentService>();
+        services.AddScoped<IExtractedFieldService, ExtractedFieldService>();
+        services.AddScoped<IErrorService, ErrorService>();
+
         return services;
     }
 
@@ -56,7 +71,6 @@ public static class ServiceExtensions
     {
         services.AddSwaggerGen(s =>
         {
-
             s.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "WebAPI",
@@ -90,20 +104,6 @@ public static class ServiceExtensions
                 });
         });
     }
-
-    //public static void UseSeedData(this WebApplication app)
-    //{
-    //    var scopFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
-    //    using (var scope = scopFactory.CreateScope())
-    //    {
-    //        var context = scope.ServiceProvider.GetService<AppDbContext>();
-    //        var passwordHasher = scope.ServiceProvider.GetService<IPasswordHasher>();
-    //        var dateTimeProvider = scope.ServiceProvider.GetService<IDateTimeProvider>();
-
-    //        DbInitializer.Seed(context, passwordHasher, dateTimeProvider);
-    //    }
-
-    //}
 
     public static void ConfigureCors(this IServiceCollection serviceCollection)
     {

@@ -2,8 +2,8 @@
 {
     public enum PolicyStatus
     {
-        Pending = 0,
-        Issued = 1,
-        Failed = 2
+        Pending,
+        Issued,
+        Failed
     }
 }

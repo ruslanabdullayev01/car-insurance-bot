@@ -7,16 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MediatR\**" />
+    <EmbeddedResource Remove="MediatR\**" />
+    <None Remove="MediatR\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CarInsuranceBot.Domain\CarInsuranceBot.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="13.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MediatR\Commands\" />
-    <Folder Include="MediatR\Queries\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace CarInsuranceBot.Application.IServices;
+﻿namespace CarInsuranceBot.Application.IServices.Helper;
 
 public interface IDateTimeProvider
 {
