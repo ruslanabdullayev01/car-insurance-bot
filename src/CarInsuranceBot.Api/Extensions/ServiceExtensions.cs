@@ -36,6 +36,7 @@ public static class ServiceExtensions
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+        services.AddTransient<IPdfService, PdfService>();
         services.AddSingleton<MindeeOcrService>();
 
         services.AddScoped<IUserService, UserService>();

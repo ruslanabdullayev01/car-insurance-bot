@@ -1,6 +1,7 @@
 ﻿using CarInsuranceBot.Application.DTOs.Document;
 using CarInsuranceBot.Application.DTOs.User;
 using CarInsuranceBot.Application.IServices;
+using CarInsuranceBot.Application.IServices.Helper;
 using CarInsuranceBot.Infrastructure.Services.Mindee;
 using Domain.Enums;
 using Domain.Extensions;
@@ -10,7 +11,8 @@ using Telegram.Bot.Types.Enums;
 
 namespace Web.API.Controllers;
 
-public class TelegramBotService(ITelegramBotClient botClient, IServiceScopeFactory serviceScopeFactory) : BackgroundService
+public class TelegramBotService(ITelegramBotClient botClient,
+                                IServiceScopeFactory serviceScopeFactory) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -27,6 +29,7 @@ public class TelegramBotService(ITelegramBotClient botClient, IServiceScopeFacto
         var extractedFieldService = scope.ServiceProvider.GetRequiredService<IExtractedFieldService>();
         var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
         var errorService = scope.ServiceProvider.GetRequiredService<IErrorService>();
+        var pdfService = scope.ServiceProvider.GetRequiredService<IPdfService>();
 
         try
         {
@@ -140,7 +143,7 @@ public class TelegramBotService(ITelegramBotClient botClient, IServiceScopeFacto
                     await bot.SendTextMessageAsync(
                         chatId,
                         BotMessagesExtensions.Welcome(fullName),
-                        parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                        parseMode: ParseMode.Markdown,
                         cancellationToken: ct
                     );
                     return;
@@ -198,6 +201,18 @@ public class TelegramBotService(ITelegramBotClient botClient, IServiceScopeFacto
                     switch (text)
                     {
                         case "yes":
+                            var extractedFields = await extractedFieldService.GetAllNonEmptyByUserIdAsync(user.Id);
+                            var filtered = extractedFields
+                                .Where(kv => !string.IsNullOrWhiteSpace(kv.Value) && kv.Value.ToLower() != "null")
+                                .ToDictionary(kv => kv.Key, kv => kv.Value);
+
+                            var pdfPath = pdfService.GeneratePolicyPdf(filtered, fullName);
+
+                            using (var stream = System.IO.File.OpenRead(pdfPath))
+                            {
+                                var inputFile = new InputFileStream(stream, "policy.pdf");
+                                await bot.SendDocumentAsync(chatId, inputFile, caption: "✅ Your policy is done!", cancellationToken: ct);
+                            }
 
                             await userService.UpdateUserStateAsync(chatId, StateType.Completed, ct);
                             break;

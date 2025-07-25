@@ -14,6 +14,7 @@
     </PackageReference>
     <PackageReference Include="Mindee" Version="3.29.0-rc4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+    <PackageReference Include="PDFsharp" Version="6.2.1" />
   </ItemGroup>
 
   <ItemGroup>
