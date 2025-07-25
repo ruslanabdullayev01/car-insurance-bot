@@ -1,4 +1,6 @@
 using CarInsuranceBot.Application;
+using CarInsuranceBot.Infrastructure.Services.Helper;
+using PdfSharp.Fonts;
 using Telegram.Bot;
 using Web.API.Controllers;
 using Web.API.Extensions;
@@ -27,6 +29,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 WebApplication app = builder.Build();
+
+GlobalFontSettings.FontResolver = new WebRootFontResolver(app.Environment.WebRootPath);
 
 if (app.Environment.IsDevelopment())
 {

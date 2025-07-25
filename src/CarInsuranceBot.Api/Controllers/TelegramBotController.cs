@@ -30,6 +30,7 @@ public class TelegramBotService(ITelegramBotClient botClient,
         var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
         var errorService = scope.ServiceProvider.GetRequiredService<IErrorService>();
         var pdfService = scope.ServiceProvider.GetRequiredService<IPdfService>();
+        var policyService = scope.ServiceProvider.GetRequiredService<IPolicyService>();
 
         try
         {
@@ -134,7 +135,6 @@ public class TelegramBotService(ITelegramBotClient botClient,
             if (update is { Type: UpdateType.Message, Message.Type: MessageType.Text })
             {
                 string? text = update.Message.Text?.Trim().ToLower();
-                var user = await userService.GetUserAsync(chatId, ct);
 
                 if (text == "/start")
                 {
@@ -155,6 +155,7 @@ public class TelegramBotService(ITelegramBotClient botClient,
                     return;
                 }
 
+                var user = await userService.GetUserAsync(chatId, ct);
                 if (text == "/status")
                 {
                     string stateMsg = user?.State switch
@@ -205,6 +206,8 @@ public class TelegramBotService(ITelegramBotClient botClient,
 
                             var pdfPath = pdfService.GeneratePolicyPdf(filtered, fullName);
 
+                            await policyService.CreatePolicyAsync(pdfPath, user.Id);
+
                             using (var stream = System.IO.File.OpenRead(pdfPath))
                             {
                                 var inputFile = new InputFileStream(stream, "policy.pdf");
@@ -243,7 +246,7 @@ public class TelegramBotService(ITelegramBotClient botClient,
 
     private async Task HandleErrorAsync(ITelegramBotClient bot, Exception exception, CancellationToken ct)
     {
-        Console.WriteLine($"Hata: {exception.Message}");
+        Console.WriteLine($"Error: {exception.Message}");
         using var scope = serviceScopeFactory.CreateScope();
         var errorService = scope.ServiceProvider.GetRequiredService<IErrorService>();
         await errorService.LogErrorAsync(exception.Message, exception.StackTrace, null, "TelegramPolling");

@@ -29,6 +29,7 @@ public static class ServiceExtensions
         services.AddScoped<IDocumentRepository, DocumentRepository>();
         services.AddScoped<IExtractedFieldRepository, ExtractedFieldRepository>();
         services.AddScoped<IErrorRepository, ErrorRepository>();
+        services.AddScoped<IPolicyRepository, PolicyRepository>();
         return services;
     }
 
@@ -43,6 +44,7 @@ public static class ServiceExtensions
         services.AddScoped<IDocumentService, DocumentService>();
         services.AddScoped<IExtractedFieldService, ExtractedFieldService>();
         services.AddScoped<IErrorService, ErrorService>();
+        services.AddScoped<IPolicyService, PolicyService>();
 
         return services;
     }

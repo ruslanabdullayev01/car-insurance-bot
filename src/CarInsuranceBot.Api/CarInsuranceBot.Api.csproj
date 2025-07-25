@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Images\Documents\" />
+    <Folder Include="wwwroot\Policies\" />
   </ItemGroup>
 
 </Project>

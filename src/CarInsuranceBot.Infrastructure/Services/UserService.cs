@@ -17,6 +17,7 @@ namespace CarInsuranceBot.Infrastructure.Services
                              IDateTimeProvider dateTime,
                              IDocumentRepository documentRepository,
                              IExtractedFieldRepository extractedFieldRepository,
+                             IPolicyRepository policyRepository,
                              IWebHostEnvironment webHostEnvironment,
                              IUnitOfWork unitOfWork) : IUserService
     {
@@ -27,7 +28,7 @@ namespace CarInsuranceBot.Infrastructure.Services
                 .FirstOrDefaultAsync(ct);
             if (user != null) return user;
 
-            user = new Domain.Entities.User()
+            user = new User()
             {
                 TelegramUserId = request.TelegramUserId,
                 FullName = request.FullName,
@@ -69,13 +70,24 @@ namespace CarInsuranceBot.Infrastructure.Services
             var user = await userRepository.FindByCondition(u => u.Id == userId, true).Include(u => u.Documents)
                 .Include(u => u.ExtractedFields).Include(u => u.Policies)
                 .FirstOrDefaultAsync();
-            if (user != null && user.Documents.Count != 0) documentRepository.DeleteAddRange(user.Documents);
-            if (user != null && user.ExtractedFields.Count != 0) extractedFieldRepository.DeleteAddRange(user.ExtractedFields);
-            // if (user != null && user.Policies.Count != 0)    //     policyRepository.RemoveRange(user.Policies);
-            foreach (var doc in user!.Documents)
+            if (user != null && user.Documents.Count != 0)
             {
-                if (!string.IsNullOrWhiteSpace(doc.FilePath))
-                    FileExtensions.DeleteFile(doc.FilePath, webHostEnvironment);
+                documentRepository.DeleteAddRange(user.Documents);
+                foreach (var doc in user!.Documents)
+                {
+                    if (!string.IsNullOrWhiteSpace(doc.FilePath))
+                        FileExtensions.DeleteFile(doc.FilePath, webHostEnvironment);
+                }
+            }
+            if (user != null && user.ExtractedFields.Count != 0) extractedFieldRepository.DeleteAddRange(user.ExtractedFields);
+            if (user != null && user.Policies.Count != 0)
+            {
+                policyRepository.DeleteAddRange(user.Policies);
+                foreach (var policy in user.Policies)
+                {
+                    if (!string.IsNullOrWhiteSpace(policy.FilePath))
+                        FileExtensions.DeleteFile(policy.FilePath, webHostEnvironment);
+                }
             }
             await unitOfWork.SaveChangesAsync();
         }

@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="PDFsharp" Version="6.2.1" />
   </ItemGroup>
 
 </Project>
