@@ -171,12 +171,9 @@ public class TelegramBotService(ITelegramBotClient botClient,
 
                 if (text == "/cancel")
                 {
-                    // await mediator.Send(new CancelUserProcessCommand(chatId), ct);
-                    // await bot.SendTextMessageAsync(
-                    //     chatId,
-                    //     "The operation has been canceled and your process has been reset. You can start again by typing /start.",
-                    //     cancellationToken: ct
-                    // );
+                    await userService.DeleteAllDataByUserIdAsync(user.Id); await userService.UpdateUserStateAsync(chatId, StateType.WaitingPassportPhoto, ct);
+                    await bot.SendTextMessageAsync(chatId, BotMessagesExtensions.Welcome(fullName), cancellationToken: ct);
+                    
                     return;
                 }
 
@@ -217,13 +214,9 @@ public class TelegramBotService(ITelegramBotClient botClient,
                             await userService.UpdateUserStateAsync(chatId, StateType.Completed, ct);
                             break;
                         case "no":
-
+                            await userService.DeleteAllDataByUserIdAsync(user.Id);
                             await userService.UpdateUserStateAsync(chatId, StateType.WaitingPassportPhoto, ct);
-                            await bot.SendTextMessageAsync(
-                                chatId,
-                                BotMessagesExtensions.Welcome(fullName),
-                                cancellationToken: ct
-                            );
+                            await bot.SendTextMessageAsync(chatId, BotMessagesExtensions.Welcome(fullName), cancellationToken: ct);
                             break;
                         default:
                             await bot.SendTextMessageAsync(

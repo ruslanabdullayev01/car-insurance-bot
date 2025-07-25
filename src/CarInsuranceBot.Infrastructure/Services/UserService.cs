@@ -4,14 +4,20 @@ using CarInsuranceBot.Application.IRepositories;
 using CarInsuranceBot.Application.IServices;
 using CarInsuranceBot.Application.IServices.Helper;
 using CarInsuranceBot.Application.IUnitOfWork;
+using CarInsuranceBot.Infrastructure.Repositories;
 using Domain.Entities;
 using Domain.Enums;
+using Domain.Extensions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarInsuranceBot.Infrastructure.Services
 {
     public class UserService(IUserRepository userRepository,
                              IDateTimeProvider dateTime,
+                             IDocumentRepository documentRepository,
+                             IExtractedFieldRepository extractedFieldRepository,
+                             IWebHostEnvironment webHostEnvironment,
                              IUnitOfWork unitOfWork) : IUserService
     {
         public async Task<User> CreateOrUpdateUsersAsync(CreateOrUpdateUserRequest request, CancellationToken ct)
@@ -56,6 +62,22 @@ namespace CarInsuranceBot.Infrastructure.Services
                 userRepository.Update(user);
                 await unitOfWork.SaveChangesAsync(ct);
             }
+        }
+
+        public async Task DeleteAllDataByUserIdAsync(string userId)
+        {
+            var user = await userRepository.FindByCondition(u => u.Id == userId, true).Include(u => u.Documents)
+                .Include(u => u.ExtractedFields).Include(u => u.Policies)
+                .FirstOrDefaultAsync();
+            if (user != null && user.Documents.Count != 0) documentRepository.DeleteAddRange(user.Documents);
+            if (user != null && user.ExtractedFields.Count != 0) extractedFieldRepository.DeleteAddRange(user.ExtractedFields);
+            // if (user != null && user.Policies.Count != 0)    //     policyRepository.RemoveRange(user.Policies);
+            foreach (var doc in user!.Documents)
+            {
+                if (!string.IsNullOrWhiteSpace(doc.FilePath))
+                    FileExtensions.DeleteFile(doc.FilePath, webHostEnvironment);
+            }
+            await unitOfWork.SaveChangesAsync();
         }
     }
 }

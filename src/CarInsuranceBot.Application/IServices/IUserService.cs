@@ -9,5 +9,6 @@ namespace CarInsuranceBot.Application.IServices
         Task<User> CreateOrUpdateUsersAsync(CreateOrUpdateUserRequest request, CancellationToken ct);
         Task<User> GetUserAsync(long telegramUserId, CancellationToken ct);
         Task UpdateUserStateAsync(long telegramUserId, StateType newState, CancellationToken ct);
+        Task DeleteAllDataByUserIdAsync(string userId);
     }
 }
