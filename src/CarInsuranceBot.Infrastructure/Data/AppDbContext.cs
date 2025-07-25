@@ -11,4 +11,5 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
     public DbSet<Error> Errors { get; set; }
     public DbSet<Document> Documents { get; set; }
     public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<Conversation> Conversations { get; set; }
 }

@@ -32,6 +32,7 @@ public class TelegramBotService(ITelegramBotClient botClient,
         var errorService = scope.ServiceProvider.GetRequiredService<IErrorService>();
         var pdfService = scope.ServiceProvider.GetRequiredService<IPdfService>();
         var policyService = scope.ServiceProvider.GetRequiredService<IPolicyService>();
+        var conversationService = scope.ServiceProvider.GetRequiredService<IConversationService>();
         var openAiService = scope.ServiceProvider.GetRequiredService<IOpenAIService>();
 
         try
@@ -202,6 +203,7 @@ public class TelegramBotService(ITelegramBotClient botClient,
                             chatResponse,
                             cancellationToken: ct
                         );
+                        await conversationService.CreateConversationAsync(user.Id, text, chatResponse);
                     }
                 }
 
