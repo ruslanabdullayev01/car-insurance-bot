@@ -1,5 +1,4 @@
-﻿using System.Text;
-using CarInsuranceBot.Application.IRepositories;
+﻿using CarInsuranceBot.Application.IRepositories;
 using CarInsuranceBot.Application.IServices;
 using CarInsuranceBot.Application.IServices.Helper;
 using CarInsuranceBot.Application.IUnitOfWork;
@@ -9,9 +8,7 @@ using CarInsuranceBot.Infrastructure.Services;
 using CarInsuranceBot.Infrastructure.Services.Helper;
 using CarInsuranceBot.Infrastructure.Services.Mindee;
 using CarInsuranceBot.Infrastructure.UnitOfWork;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Web.API.Extensions;
@@ -37,6 +34,7 @@ public static class ServiceExtensions
     {
         services.AddHttpContextAccessor();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IOpenAIService, OpenAIService>();
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
         services.AddTransient<IPdfService, PdfService>();
         services.AddSingleton<MindeeOcrService>();
