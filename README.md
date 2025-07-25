@@ -12,7 +12,7 @@ It is designed with maintainability and testability in mind using **CQRS**, **Me
 ✅ **Document upload & OCR** – Users upload **passport** and **vehicle registration certificate**, text is extracted via **Mindee API**  
 ✅ **Policy generation** – Creates and sends a PDF insurance policy to the user  
 ✅ **Database integration** – Stores all user actions, documents, policies, and logs in **PostgreSql**  
-✅ **Admin tools** – Commands for admins to check issued policies and failed generations
+✅ **OpenAI Chat Support** – /chat command allows users to ask simple insurance-related questions
 
 ---
 
@@ -58,6 +58,10 @@ Here is the required structure:
     "Username": "username",
     "Password": "password"
   },
+  "OpenAi": {
+    "ApiUrl": "https://api.openai.com/v1/chat/completions",
+    "ApiKey": "your-api-key"
+  },
   "TelegramBot": {
     "Token": "your-telegram-bot-token"
   },
@@ -96,6 +100,7 @@ docker run -p 5000:80 car-insurance-bot
 | `/status`   | Displays the current step (passport photo, registration photo, completed)   |
 | `/cancel`   | Clears all saved data for the user and restarts the process                 |
 | `/viewocr`  | Shows OCR-extracted fields and asks if the user accepts the $100 payment    |
+| `/chat`     | Opens a chat mode – user can ask insurance-related questions                |
 | **yes/no**  | User response to confirm or reject the insurance purchase                   |
 
 ---
