@@ -7,6 +7,7 @@ namespace CarInsuranceBot.Infrastructure.Services.Helper
 {
     public class PdfService(IWebHostEnvironment webHostEnvironment) : IPdfService
     {
+        [Obsolete]
         public string GeneratePolicyPdf(Dictionary<string, string> fields, string fullName)
         {
             var path = Path.Combine(webHostEnvironment.WebRootPath, "Policies");
@@ -14,7 +15,7 @@ namespace CarInsuranceBot.Infrastructure.Services.Helper
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            var filename = Path.Combine(path, $"{Guid.NewGuid()}.pdf");
+            var fileName = Path.Combine(path, $"{Guid.NewGuid()}.pdf");
             using (var doc = new PdfDocument())
             {
                 var page = doc.AddPage();
@@ -50,9 +51,9 @@ namespace CarInsuranceBot.Infrastructure.Services.Helper
                 rowY += 30;
                 gfx.DrawString("Company Seal", labelFont, XBrushes.Gray, 400, rowY);
 
-                doc.Save(filename);
+                doc.Save(fileName);
             }
-            return filename;
+            return Path.Combine("Policies", fileName).Replace("\\", "/");
         }
     }
 }

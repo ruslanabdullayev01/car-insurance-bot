@@ -35,7 +35,7 @@ public class CustomBaseController : ControllerBase
     {
         return new ObjectResult(response)
         {
-            StatusCode = response.statusCode
+            StatusCode = response.StatusCode
         };
     }
 }
