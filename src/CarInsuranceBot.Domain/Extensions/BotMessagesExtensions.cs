@@ -17,7 +17,7 @@ public static class BotMessagesExtensions
         "/help — Show help and command list\n" +
         "/status — Show your current step/missing document\n" +
         "/cancel — Cancel the operation and reset your process\n" +
-        "/chat — Chat with ChatGPT";
+        "/chat — Chat with our AI Agent";
 
     public static string ChatFinish =
         "Chat finished:\n" +
@@ -25,5 +25,5 @@ public static class BotMessagesExtensions
         "/help — Show help and command list\n" +
         "/status — Show your current step/missing document\n" +
         "/cancel — Cancel the operation and reset your process\n" +
-        "/chat — Chat with ChatGPT";
+        "/chat — Chat with our AI Agent";
 }
