@@ -22,7 +22,6 @@ builder.Services.AddRepositoriesInjection();
 builder.Services.AddServicesInjection();
 builder.Services.ConfigureSwagger();
 builder.Services.ConfigureCors();
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -33,6 +32,7 @@ GlobalFontSettings.FontResolver = new WebRootFontResolver(app.Environment.WebRoo
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseMiddleware<SwaggerBasicAuthMiddleware>();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

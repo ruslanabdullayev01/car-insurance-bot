@@ -35,6 +35,7 @@ public static class ServiceExtensions
 
     public static IServiceCollection AddServicesInjection(this IServiceCollection services)
     {
+        services.AddHttpContextAccessor();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
         services.AddTransient<IPdfService, PdfService>();
