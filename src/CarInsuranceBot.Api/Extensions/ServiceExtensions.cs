@@ -49,27 +49,6 @@ public static class ServiceExtensions
         return services;
     }
 
-    public static IServiceCollection AddJwtConfiguration(this IServiceCollection services,
-        IConfiguration config)
-    {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:secret"]!));
-
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-               .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-               {
-                   ValidateLifetime = true,
-                   ValidateIssuerSigningKey = true,
-                   IssuerSigningKey = key,
-                   //LifetimeValidator = (notBefore, expires, securityToken, validationParameters)
-                   //=> expires != null ? expires > DateTime.UtcNow : false
-               });
-        return services;
-    }
-
     public static void ConfigureSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(s =>

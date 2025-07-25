@@ -20,7 +20,6 @@ builder.Services.AddMediatr();
 builder.Services.ConfigureSqlConnection(builder.Configuration);
 builder.Services.AddRepositoriesInjection();
 builder.Services.AddServicesInjection();
-builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.ConfigureSwagger();
 builder.Services.ConfigureCors();
 
