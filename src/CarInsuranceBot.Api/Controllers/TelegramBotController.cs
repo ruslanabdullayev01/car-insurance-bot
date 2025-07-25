@@ -1,4 +1,5 @@
 ﻿using CarInsuranceBot.Application.DTOs.Document;
+using CarInsuranceBot.Application.DTOs.OpenAI;
 using CarInsuranceBot.Application.DTOs.User;
 using CarInsuranceBot.Application.IServices;
 using CarInsuranceBot.Application.IServices.Helper;
@@ -31,6 +32,7 @@ public class TelegramBotService(ITelegramBotClient botClient,
         var errorService = scope.ServiceProvider.GetRequiredService<IErrorService>();
         var pdfService = scope.ServiceProvider.GetRequiredService<IPdfService>();
         var policyService = scope.ServiceProvider.GetRequiredService<IPolicyService>();
+        var openAiService = scope.ServiceProvider.GetRequiredService<IOpenAIService>();
 
         try
         {
@@ -156,6 +158,7 @@ public class TelegramBotService(ITelegramBotClient botClient,
                 }
 
                 var user = await userService.GetUserAsync(chatId, ct);
+
                 if (text == "/status")
                 {
                     string stateMsg = user?.State switch
@@ -174,8 +177,38 @@ public class TelegramBotService(ITelegramBotClient botClient,
                 {
                     await userService.DeleteAllDataByUserIdAsync(user.Id); await userService.UpdateUserStateAsync(chatId, StateType.WaitingPassportPhoto, ct);
                     await bot.SendTextMessageAsync(chatId, BotMessagesExtensions.Welcome(fullName), cancellationToken: ct);
-                    
+
                     return;
+                }
+
+                if (text == "/chat")
+                {
+                    ChatSessionExtensions.StartChat(chatId);
+                    await bot.SendTextMessageAsync(
+                        chatId,
+                        "You are now chatting with our AI Agent! Type /endchat to finish.",
+                        cancellationToken: ct
+                    );
+                    return;
+                }
+
+                if (ChatSessionExtensions.IsActive(chatId))
+                {
+                    if (text != null)
+                    {
+                        string chatResponse = await openAiService.GetResponseAsync(new RequestDto(text));
+                        await bot.SendTextMessageAsync(
+                            chatId,
+                            chatResponse,
+                            cancellationToken: ct
+                        );
+                    }
+                }
+
+                if (text == "/endchat")
+                {
+                    ChatSessionExtensions.EndChat(chatId);
+                    await bot.SendTextMessageAsync(chatId, BotMessagesExtensions.ChatFinish, cancellationToken: ct);
                 }
 
                 if (user.State == StateType.ReadyForOcr && text == "/viewocr")
@@ -231,6 +264,8 @@ public class TelegramBotService(ITelegramBotClient botClient,
                             break;
                     }
                 }
+
+
             }
         }
         catch (Exception ex)

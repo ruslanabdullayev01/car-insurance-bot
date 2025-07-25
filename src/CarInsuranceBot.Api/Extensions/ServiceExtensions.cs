@@ -33,6 +33,7 @@ public static class ServiceExtensions
     public static IServiceCollection AddServicesInjection(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
+        services.AddHttpClient();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IOpenAIService, OpenAIService>();
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();

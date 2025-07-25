@@ -16,5 +16,14 @@ public static class BotMessagesExtensions
         "/start — Start the process\n" +
         "/help — Show help and command list\n" +
         "/status — Show your current step/missing document\n" +
-        "/cancel — Cancel the operation and reset your process";
+        "/cancel — Cancel the operation and reset your process\n" +
+        "/chat — Chat with ChatGPT";
+
+    public static string ChatFinish =
+        "Chat finished:\n" +
+        "/start — Start the process\n" +
+        "/help — Show help and command list\n" +
+        "/status — Show your current step/missing document\n" +
+        "/cancel — Cancel the operation and reset your process\n" +
+        "/chat — Chat with ChatGPT";
 }
