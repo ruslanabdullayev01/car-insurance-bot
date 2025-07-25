@@ -22,7 +22,7 @@ public class DocumentService(IDocumentRepository documentRepository,
         if (request.FilePath.CheckFileLength())
             throw new Exception("The file size must not exceed 5 mb.");
 
-        string savedPath = await request.FilePath.CreateFileAsync(env, "Images/Document");
+        string savedPath = await request.FilePath.CreateFileAsync(env, "Images/Documents");
         string absolutePath = Path.Combine(env.WebRootPath, savedPath);
 
         var document = new Domain.Entities.Document()
