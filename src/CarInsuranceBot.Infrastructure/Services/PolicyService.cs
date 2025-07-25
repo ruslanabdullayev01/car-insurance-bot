@@ -21,7 +21,7 @@ namespace CarInsuranceBot.Infrastructure.Services
                 FilePath = filePath,
                 CreatedDate = dateTimeProvider.UtcNow,
                 IssuedAt = dateTimeProvider.UtcNow,
-                ExpiryDate = dateTimeProvider.UtcNow.AddYears(1),
+                ExpiryDate = dateTimeProvider.UtcNow.AddDays(7),
             };
 
             policyRepository.Create(policy);
