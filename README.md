@@ -67,6 +67,7 @@ Here is the required structure:
     "VehicleCertificateModelId": "your-vehicle-certificate-model-id"
   }
 }
+```
 
 ### 3️⃣ Run the database migrations
 ```bash
