@@ -1,7 +1,7 @@
 ﻿using CarInsuranceBot.Application.DTOs.Document;
 using CarInsuranceBot.Application.IRepositories;
 using CarInsuranceBot.Application.IServices;
-using CarInsuranceBot.Application.IServices.Helper;
+using CarInsuranceBot.Application.IServices.Helpers;
 using CarInsuranceBot.Application.IUnitOfWork;
 using Domain.Extensions;
 using Microsoft.AspNetCore.Hosting;

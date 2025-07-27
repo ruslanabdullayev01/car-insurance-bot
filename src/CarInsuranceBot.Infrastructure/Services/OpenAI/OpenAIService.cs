@@ -1,10 +1,10 @@
 ﻿using CarInsuranceBot.Application.DTOs.OpenAI;
-using CarInsuranceBot.Application.IServices.Helper;
+using CarInsuranceBot.Application.IServices.OpenAI;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using System.Text.Json;
 
-namespace CarInsuranceBot.Infrastructure.Services.Helper
+namespace CarInsuranceBot.Infrastructure.Services.OpenAI
 {
     public sealed class OpenAIService(HttpClient httpClient, IConfiguration configuration) : IOpenAIService
     {

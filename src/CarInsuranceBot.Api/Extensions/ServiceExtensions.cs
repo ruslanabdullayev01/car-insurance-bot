@@ -1,12 +1,14 @@
 ﻿using CarInsuranceBot.Application.IRepositories;
 using CarInsuranceBot.Application.IServices;
-using CarInsuranceBot.Application.IServices.Helper;
+using CarInsuranceBot.Application.IServices.Helpers;
+using CarInsuranceBot.Application.IServices.OpenAI;
 using CarInsuranceBot.Application.IUnitOfWork;
 using CarInsuranceBot.Infrastructure.Data;
 using CarInsuranceBot.Infrastructure.Repositories;
 using CarInsuranceBot.Infrastructure.Services;
 using CarInsuranceBot.Infrastructure.Services.Helper;
 using CarInsuranceBot.Infrastructure.Services.Mindee;
+using CarInsuranceBot.Infrastructure.Services.OpenAI;
 using CarInsuranceBot.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;

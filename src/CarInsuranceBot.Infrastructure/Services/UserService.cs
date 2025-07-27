@@ -2,7 +2,7 @@
 using CarInsuranceBot.Application.Exceptions;
 using CarInsuranceBot.Application.IRepositories;
 using CarInsuranceBot.Application.IServices;
-using CarInsuranceBot.Application.IServices.Helper;
+using CarInsuranceBot.Application.IServices.Helpers;
 using CarInsuranceBot.Application.IUnitOfWork;
 using CarInsuranceBot.Infrastructure.Repositories;
 using Domain.Entities;

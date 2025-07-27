@@ -1,6 +1,6 @@
 ﻿using CarInsuranceBot.Application.DTOs.OpenAI;
 
-namespace CarInsuranceBot.Application.IServices.Helper
+namespace CarInsuranceBot.Application.IServices.OpenAI
 {
     public interface IOpenAIService
     {
