@@ -99,7 +99,7 @@ When changes are pushed to the `master` branch, the workflow:
 - Pulls the latest code
 - Rebuilds and restarts Docker containers
 
-📂 Workflow file: `.github/workflows/car-insurance-bot-autodeploy.yml`
+📂 Workflow file: `.github/workflows/autodeploy.yml`
 
 ---
 
