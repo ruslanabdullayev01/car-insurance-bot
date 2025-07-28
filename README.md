@@ -92,6 +92,17 @@ docker run -p 5000:80 car-insurance-bot
 
 ---
 
+## 🚀 CI/CD & Deployment
+This project uses **GitHub Actions** for automatic deployment.  
+When changes are pushed to the `master` branch, the workflow:
+- Connects to the production server via SSH
+- Pulls the latest code
+- Rebuilds and restarts Docker containers
+
+📂 Workflow file: `.github/workflows/car-insurance-bot-autodeploy.yml`
+
+---
+
 ## 🤖 Bot Commands
 | Command     | Description                                                                 |
 |-------------|-----------------------------------------------------------------------------|
