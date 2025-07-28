@@ -1,0 +1,31 @@
+name: car-insurance-bot-autodeploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Install sshpass
+      run: sudo apt-get install -y sshpass
+
+    - name: Deploy to Server
+      env:
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+        PROJECT_DIR: ${{ secrets.PROJECT_DIR }}
+        SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
+      run: |
+        sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << EOF
+          cd $PROJECT_DIR
+          git pull
+          docker-compose up --build -d $SERVICE_NAME
+        EOF
