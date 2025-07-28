@@ -22,7 +22,7 @@ This bot is built using **Clean Architecture** and the **CQRS** pattern, ensurin
 - **API Layer**: Handles Telegram Bot API updates, controllers, middlewares, and program startup logic.  
 - **Application Layer**: Contains **CQRS** logic (Commands, Queries, Handlers), DTOs, service/repository interfaces, and MediatR configuration.  
 - **Domain Layer**: Core business layer — contains **Entities**, **Enums**, **Abstractions** and domain rules.  
-- **Infrastructure Layer**: Responsible for **EF Core** (DbContext, Migrations), repositories, external integrations (Mindee OCR), PDF generation, and persistence logic.  
+- **Infrastructure Layer**: Responsible for **EF Core** (DbContext, Migrations), repositories, external integrations (Mindee OCR, OpenAI), PDF generation, and persistence logic.  
 
 📂 **Project Structure**
 ```
@@ -30,7 +30,7 @@ src/
 ├── CarInsuranceBot.Api            # Telegram bot entry point
 ├── CarInsuranceBot.Application    # CQRS (Commands & Queries)
 ├── CarInsuranceBot.Domain         # Entities, Events, Business Logic
-├── CarInsuranceBot.Infrastructure # DB, Mindee OCR, PDF generation
+├── CarInsuranceBot.Infrastructure # DB, Mindee OCR, OpenAI, PDF generation
 tests/
 └── CarInsuranceBot.Tests          # xUnit unit tests
 ```
@@ -113,6 +113,7 @@ docker run -p 5000:80 car-insurance-bot
 - **Policies** – issued insurance policies with policy number, issue date, expiry date, and PDF file path.  
 - **AuditLogs** – records every important action (Action, PerformedBy, old/new values).  
 - **Errors** – logs system errors with message, stack trace, timestamp, and optional context.
+- **Conversations** – OpenAI logs for audits
 
 ---
 
