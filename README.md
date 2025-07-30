@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 This project is a **modular and scalable Telegram bot** for car insurance sales built with **.NET 8** following **Clean Architecture** principles.  
-The bot guides users through document submission, OCR processing, price confirmation, and generates a dummy insurance policy in PDF format.  
+The bot guides users through document submission, OCR processing, price confirmation, and generates a dummy insurance policy in PDF format. It also includes a chat feature with an OpenAI-powered AI assistant for additional support and guidance.
 
 It is designed with maintainability and testability in mind using **CQRS**, **MediatR**, **Repository and UnitOfWork pattern**, **Result Pattern** and **Dependency Injection**.
 
